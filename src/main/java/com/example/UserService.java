@@ -21,7 +21,7 @@ public class UserService {
                 .and(UserSpecification.hasLastName(lastName))
                 .and(age != null ? UserSpecification.hasAgeGreaterThan(age) : null);
 
-        // Fetch products based on the combined specification
+        // Fetch user based on the combined specification
         return userRepository.findAll(specification);
     }
 }

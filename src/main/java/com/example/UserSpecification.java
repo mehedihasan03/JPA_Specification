@@ -8,7 +8,7 @@ import org.springframework.data.jpa.domain.Specification;
 @RequiredArgsConstructor
 public class UserSpecification {
 
-    // Specification to filter by name
+    // Specification to filter by firstName
     public static Specification<Users> hasFirstName(String firstName) {
         return (Root<Users> root, CriteriaQuery<?> query, CriteriaBuilder criteriaBuilder) -> {
             if (firstName == null || firstName.isEmpty()) {
@@ -20,12 +20,13 @@ public class UserSpecification {
         };
     }
 
-    // Specification to filter by category
+    // Specification to filter by lastName
     public static Specification<Users> hasLastName(String lastName) {
         return (Root<Users> root, CriteriaQuery<?> query, CriteriaBuilder criteriaBuilder) -> {
             if (lastName == null || lastName.isEmpty()) {
-                return criteriaBuilder.conjunction();  // No filtering if lastName is null
+                return criteriaBuilder.conjunction();  // No filtering if lastName is null or empty
             }
+            // Using LIKE query for pattern matching
             return criteriaBuilder.like(root.get("lastName"), "%" + lastName + "%");
         };
     }
